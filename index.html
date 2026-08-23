@@ -20,6 +20,19 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
 .match{display:grid;grid-template-columns:76px minmax(90px,1fr) 54px 14px 54px minmax(90px,1fr) 68px;gap:6px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}.match:last-child{border:0}.round{font-size:11px;font-weight:800;color:var(--muted)}.slot{font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.score{width:100%;text-align:center;font-size:19px;font-weight:900;border:1px solid var(--line);border-radius:9px;padding:8px 2px}.scoreText{text-align:center;font-size:19px;font-weight:900}.vs{text-align:center;color:#98a2b3}.status{text-align:right;font-size:11px;color:var(--muted)}.status.done{color:var(--ok);font-weight:700}
 @media(max-width:700px){main{padding:9px}.hero{padding:14px;border-radius:15px}.hero h2{font-size:20px}.heroActions{display:none}.card{padding:11px;margin-bottom:10px;border-radius:14px}.match{grid-template-columns:48px minmax(62px,1fr) 45px 10px 45px minmax(62px,1fr);gap:4px}.match .status{grid-column:1/-1}.slot{font-size:12px}.round{font-size:10px}.score,.scoreText{font-size:17px}.ranktable th,.ranktable td{padding:8px 3px;font-size:11px}}
 .ranktable{width:100%;border-collapse:collapse}.ranktable th,.ranktable td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:center}.ranktable th{font-size:11px;color:var(--muted)}.ranktable td:nth-child(2){text-align:left;font-weight:800}.seed{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#eef3f8;font-weight:900}.phase{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:6px 9px;background:#eef4ff;color:#174d93;font-size:12px;font-weight:800}.champion{font-size:25px;font-weight:950;color:#a66b00;text-align:center;padding:16px 8px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary,.secondary,.danger{border:0;border-radius:10px;padding:10px 13px;font-weight:800}.primary{background:#0b63ce;color:#fff}.secondary{background:#e9eef5;color:#24344d}.danger{background:#fff0f0;color:#b42318}.notice{font-size:12px;color:var(--muted);margin-top:10px}.adminOnly{display:none}.admin .adminOnly{display:block}.admin .publicOnly{display:none}.adminBanner{background:#fff7e5;border:1px solid #f3d48b;color:#765000;border-radius:13px;padding:10px 12px;margin-bottom:12px;font-size:12px;font-weight:700}.empty{color:#98a2b3;font-style:italic}.footer{text-align:center;color:#98a2b3;font-size:11px;padding:8px 0 18px}#reportCanvas{display:none}
+
+.mediaSection{margin-top:6px}.mediaGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mediaCard{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff}
+.mediaCard img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef2f6}
+.mediaBody{padding:10px}.mediaTitle{font-weight:850;font-size:14px;margin-bottom:7px}
+.mediaActions{display:flex;gap:7px;flex-wrap:wrap}
+.mediaLink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 11px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:800;background:#eaf1fb;color:#154b8d}
+.mediaLink.download{background:#eef7ee;color:#246b35}
+.videoWrap{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#000;margin-top:12px}
+.videoWrap video{display:block;width:100%;height:auto;max-height:70vh;background:#000}
+.videoInfo{padding:10px;background:#fff}.privacyNote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px}
+@media(max-width:620px){.mediaGrid{grid-template-columns:1fr}.mediaCard img{aspect-ratio:16/10}}
+
 </style>
 </head>
 <body>
@@ -39,6 +52,51 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
 <div class="card adminOnly"><h3>主控工具</h3><div class="actions"><button class="primary" onclick="exportReport()">生成活動總結 PNG</button><button class="secondary" onclick="pushCloud(true)">立即同步</button><button class="secondary" onclick="backupData()">備份資料</button><button class="danger" onclick="resetAll()">清除全部資料</button></div><div class="notice">淘汰階段不可平手；如時間到平手，請先加賽決勝，再填最終比分。</div></div>
 </section>
 </div>
+
+
+<section class="card mediaSection">
+  <h3>今日活動回顧</h3>
+  <div class="sub">精選一張大合照與一支精彩影片；更多照片與影片可到活動雲端觀看或下載。</div>
+
+  <article class="mediaCard" style="margin-top:12px">
+    <a href="featured-photo.jpg" target="_blank" rel="noopener">
+      <img src="featured-photo.jpg" alt="AR 躲避球活動大合照" loading="eager"
+           style="aspect-ratio:16/9;object-fit:cover">
+    </a>
+    <div class="mediaBody">
+      <div class="mediaTitle">活動大合照</div>
+      <div class="mediaActions">
+        <a class="mediaLink" href="featured-photo.jpg" target="_blank" rel="noopener">看大圖</a>
+        <a class="mediaLink download" href="featured-photo.jpg" download>下載照片</a>
+      </div>
+    </div>
+  </article>
+
+  <div class="videoWrap">
+    <video controls playsinline preload="metadata" poster="featured-video-poster.jpg">
+      <source src="featured-video.mp4" type="video/mp4">
+      你的瀏覽器不支援影片播放，請使用下方下載連結。
+    </video>
+    <div class="videoInfo">
+      <div class="mediaTitle">活動精彩影片</div>
+      <div class="mediaActions">
+        <a class="mediaLink download" href="featured-video.mp4" download>下載展示影片</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;padding:14px;border-radius:14px;background:#f4f8ff;border:1px solid #dbe7f7">
+    <div class="mediaTitle" style="font-size:16px">全部活動照片與影片</div>
+    <div class="sub" style="margin:4px 0 10px">前往 OneDrive 查看完整素材，並可依 OneDrive 提供的功能觀看或下載。</div>
+    <a class="mediaLink" href="https://1drv.ms/f/c/acfc6696e5eebffa/IgABhg5cP6UKR693dS68dDZWASKFDzL5w2LRSWq5WMZuepo" target="_blank" rel="noopener"
+       style="width:100%;background:#0b63ce;color:#fff;min-height:46px">
+       開啟完整活動雲端
+    </a>
+  </div>
+
+  <div class="privacyNote">提醒：GitHub Pages 公開頁與 OneDrive 分享權限是兩件事；若 OneDrive 設定為「知道連結的任何人皆可檢視」，家長與青少年即可直接由上方按鈕開啟。</div>
+</section>
+
 <div class="footer">公開頁面會自動更新，不需要登入或安裝 App。</div>
 </main>
 <canvas id="reportCanvas" width="1600" height="1200"></canvas>
