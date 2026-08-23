@@ -6,135 +6,181 @@
 <meta name="theme-color" content="#0b2d61">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AR躲避球即時賽事">
-<title>AR 躲避球｜即時賽事</title>
+<meta name="apple-mobile-web-app-title" content="311/1811活動站">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<title>311／1811 青少年活動站</title>
 <style>
-:root{--blue:#1769d2;--green:#35a84a;--purple:#7045bd;--orange:#f47a16;--navy:#0b2d61;--ink:#172033;--muted:#667085;--line:#d9e2ef;--bg:#f4f7fb;--card:#fff;--gold:#d89b00;--ok:#16833d}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;touch-action:manipulation}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:linear-gradient(180deg,#eef4fb 0,#f7f9fc 280px);color:var(--ink)}
-button,input{font:inherit}button{cursor:pointer;min-height:44px}input{font-size:16px}
-header{position:sticky;top:0;z-index:20;background:rgba(11,45,97,.96);backdrop-filter:blur(10px);color:#fff;padding:13px 16px;box-shadow:0 2px 12px #0002}.head{max-width:1160px;margin:auto;display:flex;align-items:center;gap:10px}.head h1{font-size:19px;margin:0;flex:1}.pill{font-size:12px;background:#ffffff20;padding:6px 10px;border-radius:999px;white-space:nowrap}.live{display:inline-block;width:8px;height:8px;background:#40d86c;border-radius:50%;margin-right:6px;box-shadow:0 0 0 4px #40d86c22}
-main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(135deg,#103b78,#1769d2);color:#fff;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 10px 30px #103b7822}.heroTop{display:flex;align-items:flex-start;gap:12px}.hero h2{font-size:24px;margin:0 0 5px}.hero p{margin:0;color:#dce9fb;font-size:13px;line-height:1.6}.heroActions{margin-left:auto;display:flex;gap:8px}.shareBtn{border:1px solid #ffffff55;background:#ffffff18;color:#fff;border-radius:10px;padding:8px 11px;font-weight:700}.syncline{margin-top:13px;font-size:12px;color:#dce9fb;display:flex;gap:14px;flex-wrap:wrap}
-.grid{display:grid;grid-template-columns:.9fr 1.25fr;gap:14px}@media(max-width:880px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:0 4px 18px #17365d0b;margin-bottom:14px}.card h3{font-size:17px;margin:0 0 10px}.sub{font-size:12px;color:var(--muted);margin:-3px 0 10px;line-height:1.5}
-.teams{display:grid;grid-template-columns:1fr 1fr;gap:9px}@media(max-width:620px){.teams{grid-template-columns:1fr}}.team{border:2px solid var(--line);border-radius:13px;padding:10px}.team.A{border-color:#b9d5fb}.team.B{border-color:#bfe7c6}.team.C{border-color:#d9c8f2}.team.D{border-color:#ffd1ad}.teamhead{display:flex;align-items:center;gap:8px}.badge{width:32px;height:32px;border-radius:9px;color:#fff;display:grid;place-items:center;font-weight:900;flex:0 0 auto}.A .badge{background:var(--blue)}.B .badge{background:var(--green)}.C .badge{background:var(--purple)}.D .badge{background:var(--orange)}.teamnameText{font-size:16px;font-weight:800}.memberText{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.55}.teamname{width:100%;font-weight:800;border:0;border-bottom:1px solid var(--line);padding:7px 3px;outline:none;background:transparent}.members{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}.members input{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px}
-.match{display:grid;grid-template-columns:76px minmax(90px,1fr) 54px 14px 54px minmax(90px,1fr) 68px;gap:6px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}.match:last-child{border:0}.round{font-size:11px;font-weight:800;color:var(--muted)}.slot{font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.score{width:100%;text-align:center;font-size:19px;font-weight:900;border:1px solid var(--line);border-radius:9px;padding:8px 2px}.scoreText{text-align:center;font-size:19px;font-weight:900}.vs{text-align:center;color:#98a2b3}.status{text-align:right;font-size:11px;color:var(--muted)}.status.done{color:var(--ok);font-weight:700}
-@media(max-width:700px){main{padding:9px}.hero{padding:14px;border-radius:15px}.hero h2{font-size:20px}.heroActions{display:none}.card{padding:11px;margin-bottom:10px;border-radius:14px}.match{grid-template-columns:48px minmax(62px,1fr) 45px 10px 45px minmax(62px,1fr);gap:4px}.match .status{grid-column:1/-1}.slot{font-size:12px}.round{font-size:10px}.score,.scoreText{font-size:17px}.ranktable th,.ranktable td{padding:8px 3px;font-size:11px}}
-.ranktable{width:100%;border-collapse:collapse}.ranktable th,.ranktable td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:center}.ranktable th{font-size:11px;color:var(--muted)}.ranktable td:nth-child(2){text-align:left;font-weight:800}.seed{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#eef3f8;font-weight:900}.phase{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:6px 9px;background:#eef4ff;color:#174d93;font-size:12px;font-weight:800}.champion{font-size:25px;font-weight:950;color:#a66b00;text-align:center;padding:16px 8px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary,.secondary,.danger{border:0;border-radius:10px;padding:10px 13px;font-weight:800}.primary{background:#0b63ce;color:#fff}.secondary{background:#e9eef5;color:#24344d}.danger{background:#fff0f0;color:#b42318}.notice{font-size:12px;color:var(--muted);margin-top:10px}.adminOnly{display:none}.admin .adminOnly{display:block}.admin .publicOnly{display:none}.adminBanner{background:#fff7e5;border:1px solid #f3d48b;color:#765000;border-radius:13px;padding:10px 12px;margin-bottom:12px;font-size:12px;font-weight:700}.empty{color:#98a2b3;font-style:italic}.footer{text-align:center;color:#98a2b3;font-size:11px;padding:8px 0 18px}#reportCanvas{display:none}
-
-.mediaSection{margin-top:6px}.mediaGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mediaCard{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff}
-.mediaCard img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef2f6}
-.mediaBody{padding:10px}.mediaTitle{font-weight:850;font-size:14px;margin-bottom:7px}
-.mediaActions{display:flex;gap:7px;flex-wrap:wrap}
-.mediaLink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 11px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:800;background:#eaf1fb;color:#154b8d}
-.mediaLink.download{background:#eef7ee;color:#246b35}
-.videoWrap{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#000;margin-top:12px}
-.videoWrap video{display:block;width:100%;height:auto;max-height:70vh;background:#000}
-.videoInfo{padding:10px;background:#fff}.privacyNote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px}
-@media(max-width:620px){.mediaGrid{grid-template-columns:1fr}.mediaCard img{aspect-ratio:16/10}}
-
+:root{--navy:#0b2d61;--blue:#1769d2;--blue2:#2e7de1;--ink:#172033;--muted:#667085;--line:#dbe3ee;--bg:#f4f7fb;--card:#fff;--gold:#d99a00;--green:#16833d;--orange:#f47a16}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:linear-gradient(180deg,#edf4fb 0,#f7f9fc 360px);color:var(--ink)}a{color:inherit}button{font:inherit;cursor:pointer}
+header{position:sticky;top:0;z-index:50;background:rgba(11,45,97,.96);backdrop-filter:blur(12px);color:#fff;box-shadow:0 2px 12px #0002}
+.head{max-width:1160px;margin:auto;padding:12px 14px;display:flex;align-items:center;gap:10px}.brand{display:flex;align-items:center;gap:9px;min-width:0;flex:1}.brandMark{width:36px;height:36px;border-radius:10px;background:#fff;display:grid;place-items:center;color:var(--navy);font-weight:900;font-size:12px}.brandText{min-width:0}.brandText b{display:block;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brandText small{font-size:10px;color:#dce9fb}.headerBtn{border:1px solid #ffffff55;background:#ffffff15;color:#fff;border-radius:10px;padding:8px 10px;font-weight:700}
+main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(135deg,#103b78,#1769d2);color:#fff;border-radius:22px;padding:22px;margin-bottom:14px;box-shadow:0 12px 30px #103b7824}.heroTop{display:flex;gap:14px;align-items:flex-start}.hero h1{font-size:29px;line-height:1.25;margin:0 0 7px}.hero p{font-size:14px;color:#dce9fb;line-height:1.65;margin:0}.heroButtons{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.heroBtn{border:1px solid #ffffff55;background:#ffffff18;color:#fff;border-radius:11px;padding:10px 13px;font-weight:800;text-decoration:none}.heroMeta{margin-top:15px;display:flex;gap:9px;flex-wrap:wrap}.chip{background:#ffffff15;border:1px solid #ffffff28;padding:7px 10px;border-radius:999px;font-size:12px}
+.quickNav{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}.q{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 8px;text-align:center;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 3px 12px #17365d08}.q span{display:block;font-size:21px;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 4px 18px #17365d0b;margin-bottom:14px}.card h2{font-size:19px;margin:0 0 5px}.sub{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:12px}.sectionHead{display:flex;gap:10px;align-items:flex-start}.sectionHead>div:first-child{flex:1}
+.notice{border-left:5px solid var(--orange);background:#fff9f3}.notice strong{color:#a44d00}.noticeList{margin:8px 0 0;padding-left:20px;font-size:14px;line-height:1.7}
+.nextGrid{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}.eventBox{background:linear-gradient(135deg,#f8fbff,#edf5ff);border:1px solid #cedef4;border-radius:16px;padding:15px}.eventStatus{display:inline-block;background:#e7eef8;color:#4b6483;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.eventTitle{font-size:23px;font-weight:900;margin:10px 0 5px}.eventDetail{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.detail{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px}.detail small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.detail b{font-size:13px}.actionRow{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 13px;border-radius:11px;text-decoration:none;border:0;font-weight:850}.btn.primary{background:var(--blue);color:#fff}.btn.secondary{background:#eaf1fb;color:#154b8d}.btn.green{background:#edf8ef;color:#216d34}.btn.disabled{background:#eef1f5;color:#98a2b3;pointer-events:none}
+.countdown{background:#0d356f;color:#fff;border-radius:16px;padding:15px;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:100%}.countdown small{color:#cfe0f5}.countdownBig{font-size:25px;font-weight:950;margin:8px 0}.countCells{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.countCell{background:#ffffff12;border-radius:9px;padding:8px 4px}.countCell b{display:block;font-size:20px}.countCell span{font-size:9px;color:#dce9fb}
+.tabs{display:flex;gap:7px;margin:10px 0}.tab{border:0;border-radius:999px;background:#eef2f6;color:#506070;padding:8px 12px;font-weight:800}.tab.active{background:#0b63ce;color:#fff}.plan{display:none}.plan.active{display:block}.timeline{position:relative;margin-left:9px;padding-left:20px;border-left:2px solid #d9e6f5}.timelineItem{position:relative;padding:0 0 14px}.timelineItem:before{content:"";position:absolute;left:-27px;top:4px;width:12px;height:12px;border-radius:50%;background:#1769d2;border:3px solid #e8f2ff}.time{font-size:11px;font-weight:900;color:#1769d2}.tlTitle{font-weight:850;margin-top:2px}.tlNote{font-size:12px;color:var(--muted);margin-top:2px}
+.mediaGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.photoCard,.videoCard{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff}.photoCard img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.videoCard video{display:block;width:100%;aspect-ratio:16/10;background:#000}.mediaBody{padding:10px}.mediaTitle{font-weight:850;margin-bottom:7px}.mediaActions{display:flex;gap:7px;flex-wrap:wrap}
+.archiveGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.archive{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.archiveDate{font-size:11px;color:#1769d2;font-weight:900}.archiveTitle{font-weight:900;margin:5px 0}.archiveText{font-size:12px;color:var(--muted);line-height:1.5}.archiveLink{display:inline-block;margin-top:9px;color:#1769d2;font-size:12px;font-weight:800;text-decoration:none}
+.qrGrid{display:grid;grid-template-columns:150px 1fr;gap:15px;align-items:center}.qrGrid img{width:150px;height:150px;border:1px solid var(--line);border-radius:14px;padding:6px;background:#fff}.installBox{background:#f7f9fc;border:1px solid var(--line);border-radius:14px;padding:12px}.installBox ol{margin:7px 0 0;padding-left:19px;font-size:12px;line-height:1.7}
+.footer{text-align:center;color:#98a2b3;font-size:11px;padding:10px 0 86px}
+.bottomNav{display:none}
+.modalBack{position:fixed;inset:0;background:#0008;z-index:100;display:none;align-items:flex-end;justify-content:center}.modalBack.show{display:flex}.modal{background:#fff;width:min(560px,100%);border-radius:20px 20px 0 0;padding:18px;max-height:85vh;overflow:auto}.modal h3{margin:0 0 8px}.close{float:right;border:0;background:#eef2f6;border-radius:999px;width:36px;height:36px;font-weight:900}
+@media(max-width:780px){main{padding:9px}.hero{padding:16px;border-radius:16px}.hero h1{font-size:23px}.heroButtons{display:none}.quickNav{grid-template-columns:repeat(3,1fr)}.nextGrid,.mediaGrid{grid-template-columns:1fr}.archiveGrid{grid-template-columns:1fr}.eventDetail{grid-template-columns:1fr 1fr}.qrGrid{grid-template-columns:110px 1fr}.qrGrid img{width:110px;height:110px}.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 5px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px #0001}.bottomNav a{text-align:center;text-decoration:none;font-size:9px;color:#667085;font-weight:800}.bottomNav span{display:block;font-size:19px;margin-bottom:2px}}
 </style>
 </head>
 <body>
-<header><div class="head"><h1>AR 躲避球｜即時賽事</h1><span class="pill"><span class="live"></span><span id="modePill">公開直播</span></span></div></header>
+<header>
+ <div class="head">
+  <div class="brand"><div class="brandMark">311<br>1811</div><div class="brandText"><b>311／1811 青少年活動站</b><small>活動資訊・報名・回顧</small></div></div>
+  <button class="headerBtn" onclick="shareSite()">分享</button>
+ </div>
+</header>
 <main>
-<section class="hero"><div class="heroTop"><div><h2 id="heroTitle">今日 AR 躲避球挑戰賽</h2><p>四隊單循環排名賽＋簡化雙敗決賽｜共 10 場</p></div><div class="heroActions publicOnly"><button class="shareBtn" onclick="shareSite()">分享賽事</button></div></div><div class="syncline"><span id="phaseText">準備中</span><span id="updatedText">等待最新資料</span></div></section>
-<div id="adminBanner" class="adminBanner adminOnly">主控模式：可以修改隊伍與比分。輸入文字時不會重新整理；離開欄位後才更新排名與下一場對戰。</div>
-<div class="grid">
-<section>
-<div class="card"><h3>參賽隊伍</h3><div class="teams" id="teams"></div></div>
-<div class="card"><h3>即時排名</h3><div class="sub">勝 3 分、和 1 分、敗 0 分；同分依得失分差、總得分排序。</div><table class="ranktable"><thead><tr><th>名次</th><th>隊伍</th><th>勝</th><th>和</th><th>敗</th><th>差</th><th>積分</th></tr></thead><tbody id="ranking"></tbody></table></div>
-<div class="card"><h3>最終結果</h3><div id="champion" class="champion">冠軍尚未產生</div></div>
-</section>
-<section>
-<div class="card"><h3>第一階段｜單循環 6 場</h3><div id="roundRobin"></div></div>
-<div class="card"><h3>第二階段｜簡化雙敗 4 場</h3><div class="sub">第7場：第1 vs 第2｜第8場：第3 vs 第4｜第9場：第7場敗者 vs 第8場勝者｜第10場：冠軍賽</div><div id="playoffs"></div></div>
-<div class="card adminOnly"><h3>主控工具</h3><div class="actions"><button class="primary" onclick="exportReport()">生成活動總結 PNG</button><button class="secondary" onclick="pushCloud(true)">立即同步</button><button class="secondary" onclick="backupData()">備份資料</button><button class="danger" onclick="resetAll()">清除全部資料</button></div><div class="notice">淘汰階段不可平手；如時間到平手，請先加賽決勝，再填最終比分。</div></div>
-</section>
-</div>
-
-
-<section class="card mediaSection">
-  <h3>今日活動回顧</h3>
-  <div class="sub">精選一張大合照與一支精彩影片；更多照片與影片可到活動雲端觀看或下載。</div>
-
-  <article class="mediaCard" style="margin-top:12px">
-    <a href="featured-photo.jpg" target="_blank" rel="noopener">
-      <img src="featured-photo.jpg" alt="AR 躲避球活動大合照" loading="eager"
-           style="aspect-ratio:16/9;object-fit:cover">
-    </a>
-    <div class="mediaBody">
-      <div class="mediaTitle">活動大合照</div>
-      <div class="mediaActions">
-        <a class="mediaLink" href="featured-photo.jpg" target="_blank" rel="noopener">看大圖</a>
-        <a class="mediaLink download" href="featured-photo.jpg" download>下載照片</a>
-      </div>
-    </div>
-  </article>
-
-  <div class="videoWrap">
-    <video controls playsinline preload="metadata" poster="featured-video-poster.jpg">
-      <source src="featured-video.mp4" type="video/mp4">
-      你的瀏覽器不支援影片播放，請使用下方下載連結。
-    </video>
-    <div class="videoInfo">
-      <div class="mediaTitle">活動精彩影片</div>
-      <div class="mediaActions">
-        <a class="mediaLink download" href="featured-video.mp4" download>下載展示影片</a>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin-top:14px;padding:14px;border-radius:14px;background:#f4f8ff;border:1px solid #dbe7f7">
-    <div class="mediaTitle" style="font-size:16px">全部活動照片與影片</div>
-    <div class="sub" style="margin:4px 0 10px">前往 OneDrive 查看完整素材，並可依 OneDrive 提供的功能觀看或下載。</div>
-    <a class="mediaLink" href="https://1drv.ms/f/c/acfc6696e5eebffa/IgABhg5cP6UKR693dS68dDZWASKFDzL5w2LRSWq5WMZuepo" target="_blank" rel="noopener"
-       style="width:100%;background:#0b63ce;color:#fff;min-height:46px">
-       開啟完整活動雲端
-    </a>
-  </div>
-
-  <div class="privacyNote">提醒：GitHub Pages 公開頁與 OneDrive 分享權限是兩件事；若 OneDrive 設定為「知道連結的任何人皆可檢視」，家長與青少年即可直接由上方按鈕開啟。</div>
+<section class="hero">
+ <div class="heroTop"><div><h1>一起出發，一起留下回憶</h1><p>311／1811 青少年、同學與家長的活動資訊站。下一次活動、集合資訊、報名、導航、活動回顧都集中在這裡。</p></div>
+ <div class="heroButtons"><a class="heroBtn" href="#next">下一次活動</a><a class="heroBtn" href="#recent">活動回顧</a></div></div>
+ <div class="heroMeta"><span class="chip">📣 最新公告集中</span><span class="chip">📍 一鍵導航</span><span class="chip">📸 活動照片／影片</span><span class="chip">📱 可加入主畫面</span></div>
 </section>
 
-<div class="footer">公開頁面會自動更新，不需要登入或安裝 App。</div>
+<nav class="quickNav">
+ <a class="q" href="#next"><span>🗓️</span>下一次活動</a>
+ <a class="q" href="#signup"><span>📝</span>活動報名</a>
+ <a class="q" href="#notice"><span>📣</span>最新公告</a>
+ <a class="q" href="#recent"><span>📸</span>近期回顧</a>
+ <a class="q" href="#archive"><span>🗂️</span>歷次活動</a>
+ <a class="q" href="#share"><span>📱</span>分享／加入</a>
+</nav>
+
+<section id="notice" class="card notice">
+ <div class="sectionHead"><div><h2>最新公告</h2><div class="sub">重要變更會優先放在這裡。</div></div><strong>目前無緊急公告</strong></div>
+ <ul class="noticeList">
+   <li>下一次 311／1811 外出活動正在規劃中，日期與報名資訊公布後會更新在本站。</li>
+   <li>8/22 AR 躲避球活動的照片與影片已整理於下方「近期活動回顧」。</li>
+ </ul>
+</section>
+
+<section id="next" class="card">
+ <div class="sectionHead"><div><h2>下一次活動</h2><div class="sub">活動資訊公布後，這裡會同步顯示倒數、報名、集合位置與導航。</div></div><span class="eventStatus">籌備中</span></div>
+ <div class="nextGrid">
+   <div class="eventBox">
+     <div class="eventTitle">下一次 311／1811 青少年活動</div>
+     <div class="sub">日期、集合地點與內容確定後即會公告。</div>
+     <div class="eventDetail">
+       <div class="detail"><small>日期</small><b id="nextDateText">尚未公布</b></div>
+       <div class="detail"><small>集合時間</small><b id="nextTimeText">尚未公布</b></div>
+       <div class="detail"><small>集合地點</small><b id="nextPlaceText">尚未公布</b></div>
+       <div class="detail"><small>參加對象</small><b>311／1811 青少年、同學、家長</b></div>
+     </div>
+     <div id="signup" class="actionRow">
+       <a id="signupBtn" class="btn disabled" href="#" aria-disabled="true">報名尚未開放</a>
+       <a id="mapBtn" class="btn disabled" href="#" aria-disabled="true">Google Maps 導航</a>
+       <button class="btn secondary" onclick="openPlan()">查看活動流程</button>
+     </div>
+   </div>
+   <div class="countdown">
+     <small>距離下一次活動</small>
+     <div id="countTitle" class="countdownBig">日期尚未公布</div>
+     <div class="countCells">
+       <div class="countCell"><b id="cdD">--</b><span>天</span></div>
+       <div class="countCell"><b id="cdH">--</b><span>時</span></div>
+       <div class="countCell"><b id="cdM">--</b><span>分</span></div>
+       <div class="countCell"><b id="cdS">--</b><span>秒</span></div>
+     </div>
+   </div>
+ </div>
+</section>
+
+<section class="card">
+ <h2>活動流程</h2><div class="sub">下一次活動確定後可同時保留晴天／雨天方案，現場只要切換即可。</div>
+ <div class="tabs"><button class="tab active" onclick="showPlan('sun',this)">☀️ 晴天方案</button><button class="tab" onclick="showPlan('rain',this)">🌧️ 雨天方案</button></div>
+ <div id="sun" class="plan active"><div class="timeline">
+   <div class="timelineItem"><div class="time">—</div><div class="tlTitle">下一次活動尚未公布</div><div class="tlNote">確定後會依時間順序顯示完整流程。</div></div>
+ </div></div>
+ <div id="rain" class="plan"><div class="timeline">
+   <div class="timelineItem"><div class="time">—</div><div class="tlTitle">雨天備案尚未公布</div><div class="tlNote">如活動有雨備方案，會在此顯示。</div></div>
+ </div></div>
+</section>
+
+<section id="recent" class="card">
+ <h2>近期活動回顧</h2><div class="sub">2026/08/22｜AR 躲避球＆外出相調</div>
+ <div class="mediaGrid">
+   <article class="photoCard"><a href="featured-photo.jpg" target="_blank"><img src="featured-photo.jpg" alt="8/22 活動大合照"></a><div class="mediaBody"><div class="mediaTitle">活動大合照</div><div class="mediaActions"><a class="btn secondary" href="featured-photo.jpg" target="_blank">看大圖</a><a class="btn green" href="featured-photo.jpg" download>下載照片</a></div></div></article>
+   <article class="videoCard"><video controls playsinline preload="metadata" poster="featured-video-poster.jpg"><source src="featured-video.mp4" type="video/mp4"></video><div class="mediaBody"><div class="mediaTitle">活動精彩影片</div><div class="mediaActions"><a class="btn green" href="featured-video.mp4" download>下載影片</a></div></div></article>
+ </div>
+ <div class="actionRow" style="margin-top:12px"><a class="btn primary" href="https://1drv.ms/f/c/acfc6696e5eebffa/IgABhg5cP6UKR693dS68dDZWASKFDzL5w2LRSWq5WMZuepo" target="_blank" rel="noopener">開啟完整活動雲端</a><a class="btn secondary" href="#score">查看 8/22 比賽結果</a></div>
+</section>
+
+<section id="score" class="card">
+ <h2>8/22 AR 躲避球賽事</h2><div class="sub">保留當天即時賽事系統入口；公開頁可查看隊伍、比分、排名與最終冠軍。</div>
+ <div class="actionRow"><a class="btn primary" href="score.html">開啟賽事結果</a><a class="btn secondary" href="https://1drv.ms/f/c/acfc6696e5eebffa/IgABhg5cP6UKR693dS68dDZWASKFDzL5w2LRSWq5WMZuepo" target="_blank">照片／影片雲端</a></div>
+</section>
+
+<section id="archive" class="card">
+ <h2>歷次活動</h2><div class="sub">活動會依日期累積，成為 311／1811 的活動回憶冊。</div>
+ <div class="archiveGrid">
+   <article class="archive"><div class="archiveDate">2026.08.22</div><div class="archiveTitle">AR 躲避球＆外出相調</div><div class="archiveText">四隊賽事、活動大合照、精彩影片與完整活動雲端。</div><a class="archiveLink" href="#recent">查看活動回顧 →</a></article>
+   <article class="archive"><div class="archiveDate">COMING SOON</div><div class="archiveTitle">下一次活動</div><div class="archiveText">新的活動結束後會自動累積在這裡。</div></article>
+   <article class="archive"><div class="archiveDate">311／1811</div><div class="archiveTitle">活動回憶持續累積</div><div class="archiveText">未來可再依年份、活動類型或地點分類。</div></article>
+ </div>
+</section>
+
+<section id="share" class="card">
+ <h2>分享活動站／加入主畫面</h2><div class="sub">網址固定不變，以後活動內容更新也可以繼續使用同一個 QR Code。</div>
+ <div class="qrGrid"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUgAAAFIAQAAAAAab1qeAAACa0lEQVR4nO1ay47bQAwji/z/L7MHUvL0UniLYmUtPAEcJyZgiZjRm8LN9esu8EW+yP+GhGqDCoAk/yGhPgXbotEs8gMzCUIgQFEQKECoL4DTcm5BfgCAZo1iXcxrc6lxORciQyEl+tBT4Le9/YcgP8c9BQCioPB40LlGowfwGadjAwr4Ivrs19MtGs3z2buQoigCdcXxdItG43z+EdH7sFPmkVfAtEaj+fhTKtoEOSLNPzowWzSaRdqHi6HOUWh+UihTqmk5NyElSKQNJQGH8vZPdkhv/PklJBlLSQm1Q0EQ2ah8hpw7kOpzDZlJ0d/ep3k6LucKpPNNAaLzIyebAKDY0djWLRqN8xkWRYfvbTaZ+yC2aDSOFNtOqlisqIkXqeNy7kGW2bQrZ8ImJZ63b3qCnAuQXU92GRlSbhLPlyV94/l76/LtQE62wCMA7cB+i0bjfFJUeNVZosvGrXRpi0bj/t39Dbbh7KTzNKvTcm5BZkuGzvSMsmkp9pGflnMRkkrEWc79bMYRSTfn5dyCTKM43Th06TNWoKoj43KuQFIJNqvHWTuzkqW2oVs0GvdH5kxuEnf9U66TMOWSaTkXIW02We1iNIMgUxV5hJyLkJmyMXHVivP2JCm+9vP2cr7ZWefZnTu7Sm++eW9Rxy3rbF/dIzVki0bj/igZZk2FVaKUuaUmfItG43xe83W6Is+KkroyskajByDd22T3Nh2F6nr0+qO765gHq2mw+Hfx2qVv//1fkOwRMAAgpLKh3/H2H4SUugyPZO9lTa+K6APkXIA85+czveSBpkSf10D9Fo0eE38OvP1Fvsi/r9/40VNRKOmUDgAAAABJRU5ErkJggg==" alt="311/1811 活動站 QR Code"><div>
+   <div class="mediaTitle">掃描 QR Code 開啟活動站</div>
+   <div class="actionRow"><button class="btn primary" onclick="shareSite()">分享網站</button><button class="btn secondary" onclick="showInstall()">加入手機主畫面</button></div>
+   <div class="installBox" style="margin-top:9px"><b>iPhone／iPad</b><ol><li>用 Safari 開啟本站</li><li>點「分享」</li><li>選「加入主畫面」</li></ol></div>
+ </div></div>
+</section>
+
+<div class="footer">311／1811 青少年活動站｜活動資訊以最新公告為準</div>
 </main>
-<canvas id="reportCanvas" width="1600" height="1200"></canvas>
+
+<nav class="bottomNav">
+ <a href="#next"><span>🗓️</span>活動</a><a href="#notice"><span>📣</span>公告</a><a href="#recent"><span>📸</span>回顧</a><a href="#archive"><span>🗂️</span>歷次</a><a href="#share"><span>📱</span>分享</a>
+</nav>
+
+<div id="planModal" class="modalBack" onclick="if(event.target===this)closeModal('planModal')"><div class="modal"><button class="close" onclick="closeModal('planModal')">×</button><h3>下一次活動流程</h3><p class="sub">目前尚未公布。之後會在這裡顯示集合時間、車程、活動、用餐與回程等完整時間軸。</p></div></div>
+<div id="installModal" class="modalBack" onclick="if(event.target===this)closeModal('installModal')"><div class="modal"><button class="close" onclick="closeModal('installModal')">×</button><h3>加入手機主畫面</h3><p>iPhone／iPad：用 Safari 開啟本站 → 點下方「分享」按鈕 → 選「加入主畫面」。之後可以像 App 一樣從桌面開啟。</p><p>Android：用 Chrome 開啟本站，瀏覽器通常會提供「安裝」或「新增至主畫面」。</p></div></div>
+
 <script>
-const API="https://kbbmmfhguvwcsdxgixwn.supabase.co/functions/v1/ar-dodgeball-api";
-const ADMIN_KEY=new URLSearchParams(location.search).get("admin")||"";
-const isAdmin=ADMIN_KEY.length>0;
-const colors={A:"#1769d2",B:"#35a84a",C:"#7045bd",D:"#f47a16"};
-const rr=[["A","B"],["C","D"],["A","C"],["B","D"],["A","D"],["B","C"]];
-let state={teams:{A:{name:"A隊",members:["","","",""]},B:{name:"B隊",members:["","","",""]},C:{name:"C隊",members:["","","",""]},D:{name:"D隊",members:["","","",""]}},scores:Array.from({length:10},()=>["",""])};
-let syncTimer=null,lastUpdated=null;
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function teamLabel(k){return k?(state.teams[k]?.name||k):"待定"}
-function isDone(i){return state.scores[i]?.[0]!==""&&state.scores[i]?.[1]!==""}
-function stats(){let s={};Object.keys(state.teams).forEach(k=>s[k]={w:0,d:0,l:0,gf:0,ga:0,pts:0});rr.forEach((m,i)=>{if(!isDone(i))return;let x=+state.scores[i][0],y=+state.scores[i][1],a=m[0],b=m[1];s[a].gf+=x;s[a].ga+=y;s[b].gf+=y;s[b].ga+=x;if(x>y){s[a].w++;s[b].l++;s[a].pts+=3}else if(x<y){s[b].w++;s[a].l++;s[b].pts+=3}else{s[a].d++;s[b].d++;s[a].pts++;s[b].pts++}});return s}
-function ranking(){let s=stats();return Object.keys(s).sort((a,b)=>s[b].pts-s[a].pts||((s[b].gf-s[b].ga)-(s[a].gf-s[a].ga))||s[b].gf-s[a].gf||a.localeCompare(b))}
-function winner(i,a,b){if(!isDone(i)||!a||!b)return null;let x=+state.scores[i][0],y=+state.scores[i][1];return x===y?null:(x>y?a:b)}
-function loser(i,a,b){let w=winner(i,a,b);return w?(w===a?b:a):null}
-function playoffSlots(){let r=ranking(),g7=[r[0],r[1]],g8=[r[2],r[3]],g9=[loser(6,...g7),winner(7,...g8)],g10=[winner(6,...g7),winner(8,...g9)];return[g7,g8,g9,g10]}
-function phase(){let completed=state.scores.filter((_,i)=>isDone(i)).length;if(completed===0)return"準備中";if(completed<6)return`單循環進行中｜已完成 ${completed}/6 場`;if(completed<10)return`決賽階段進行中｜已完成 ${completed-6}/4 場`;return"賽事已結束"}
-function renderTeams(){let el=document.getElementById("teams");el.innerHTML="";Object.keys(state.teams).forEach(k=>{let t=state.teams[k],d=document.createElement("div");d.className="team "+k;if(isAdmin){d.innerHTML=`<div class="teamhead"><span class="badge">${k}</span><input class="teamname" value="${esc(t.name)}" data-team="${k}" data-type="name"></div><div class="members">${t.members.map((m,i)=>`<input placeholder="成員 ${i+1}" value="${esc(m)}" data-team="${k}" data-type="member" data-i="${i}">`).join("")}</div>`}else{let members=t.members.filter(Boolean);d.innerHTML=`<div class="teamhead"><span class="badge">${k}</span><span class="teamnameText">${esc(t.name||k+"隊")}</span></div><div class="memberText ${members.length?'':'empty'}">${members.length?esc(members.join("・")):"成員名單待公布"}</div>`}el.appendChild(d)});if(isAdmin)el.querySelectorAll("input").forEach(x=>{x.oninput=e=>{let k=e.target.dataset.team;if(e.target.dataset.type==="name")state.teams[k].name=e.target.value;else state.teams[k].members[+e.target.dataset.i]=e.target.value;scheduleSave()};x.onchange=refreshDerived;x.onblur=refreshDerived})}
-function matchRow(i,a,b,label){let done=isDone(i);if(isAdmin)return `<div class="match"><span class="round">${label}</span><span class="slot">${esc(teamLabel(a))}</span><input inputmode="numeric" class="score" value="${esc(state.scores[i][0])}" data-game="${i}" data-side="0" placeholder="-"><span class="vs">:</span><input inputmode="numeric" class="score" value="${esc(state.scores[i][1])}" data-game="${i}" data-side="1" placeholder="-"><span class="slot">${esc(teamLabel(b))}</span><span class="status ${done?'done':''}">${done?'✓ 已完成':'未完成'}</span></div>`;return `<div class="match"><span class="round">${label}</span><span class="slot">${esc(teamLabel(a))}</span><span class="scoreText">${done?esc(state.scores[i][0]):'–'}</span><span class="vs">:</span><span class="scoreText">${done?esc(state.scores[i][1]):'–'}</span><span class="slot">${esc(teamLabel(b))}</span><span class="status ${done?'done':''}">${done?'✓ 已完成':'待比賽'}</span></div>`}
-function bindScores(root){if(!isAdmin)return;root.querySelectorAll(".score").forEach(x=>{x.oninput=e=>{let i=+e.target.dataset.game,s=+e.target.dataset.side,clean=e.target.value.replace(/[^\d]/g,"");state.scores[i][s]=clean;if(e.target.value!==clean)e.target.value=clean;scheduleSave()};x.onchange=refreshDerived;x.onblur=refreshDerived})}
-function renderRR(){let el=document.getElementById("roundRobin");el.innerHTML=rr.map((m,i)=>matchRow(i,m[0],m[1],`第${i+1}場`)).join("");bindScores(el)}
-function renderRanking(){let r=ranking(),s=stats();document.getElementById("ranking").innerHTML=r.map((k,i)=>`<tr><td><span class="seed">${i+1}</span></td><td>${esc(teamLabel(k))}</td><td>${s[k].w}</td><td>${s[k].d}</td><td>${s[k].l}</td><td>${s[k].gf-s[k].ga}</td><td><b>${s[k].pts}</b></td></tr>`).join("")}
-function renderPlayoffs(){let p=playoffSlots(),el=document.getElementById("playoffs"),labels=["第7場｜第1 vs 第2","第8場｜第3 vs 第4","第9場｜敗7 vs 勝8","第10場｜冠軍賽"];el.innerHTML=p.map((m,j)=>matchRow(j+6,m[0],m[1],labels[j])).join("");bindScores(el);let c=winner(9,...p[3]);document.getElementById("champion").textContent=c?`🏆 冠軍：${teamLabel(c)}`:"冠軍尚未產生"}
-function refreshDerived(){renderRR();renderRanking();renderPlayoffs();renderMeta()}
-function renderAll(){renderTeams();refreshDerived()}
-function renderMeta(){document.body.classList.toggle("admin",isAdmin);document.getElementById("modePill").textContent=isAdmin?"主控模式":"公開直播";document.getElementById("phaseText").textContent=phase();document.getElementById("updatedText").textContent=lastUpdated?`最後更新：${new Date(lastUpdated).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`:"等待最新資料"}
-function scheduleSave(){localStorage.setItem("arDodgeballState",JSON.stringify(state));clearTimeout(syncTimer);syncTimer=setTimeout(()=>pushCloud(false),500)}
-async function pushCloud(show=false){if(!isAdmin)return;try{let r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","x-admin-key":ADMIN_KEY},body:JSON.stringify({data:state})});if(!r.ok)throw new Error();lastUpdated=new Date().toISOString();renderMeta();if(show)alert("已同步") }catch(e){if(show)alert("同步失敗，請檢查網路")}}
-async function pullCloud(){try{let r=await fetch(API+"?t="+Date.now(),{cache:"no-store"}),j=await r.json();if(j.data){state=j.data;lastUpdated=j.updated_at||new Date().toISOString();if(isAdmin)localStorage.setItem("arDodgeballState",JSON.stringify(state));renderAll()}}catch(e){document.getElementById("updatedText").textContent="暫時無法連線，稍後自動重試"}}
-async function shareSite(){let url=location.origin+location.pathname;try{if(navigator.share)await navigator.share({title:"AR 躲避球｜即時賽事",text:"查看即時比分與賽程",url});else{await navigator.clipboard.writeText(url);alert("公開網址已複製")}}catch(e){}}
-function backupData(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));a.download="AR躲避球_賽事備份.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-async function resetAll(){if(!isAdmin||!confirm("確定清除所有隊名、成員與比分？"))return;state={teams:{A:{name:"A隊",members:["","","",""]},B:{name:"B隊",members:["","","",""]},C:{name:"C隊",members:["","","",""]},D:{name:"D隊",members:["","","",""]}},scores:Array.from({length:10},()=>["",""])};localStorage.setItem("arDodgeballState",JSON.stringify(state));renderAll();await pushCloud(false)}
-function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}function text(ctx,t,x,y,size=28,weight=500,align="left",color="#172033"){ctx.font=`${weight} ${size}px "PingFang TC","Microsoft JhengHei",sans-serif`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(t,x,y)}function box(ctx,x,y,w,h,stroke="#d9e2ef",fill="#fff"){ctx.fillStyle=fill;roundRect(ctx,x,y,w,h,18);ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}
-function exportReport(){let c=document.getElementById("reportCanvas"),ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle="#f6f8fc";ctx.fillRect(0,0,c.width,c.height);text(ctx,"AR 躲避球｜活動賽事總結",70,75,42,800);text(ctx,new Date().toLocaleDateString("zh-TW"),1530,70,22,500,"right","#667085");let keys=["A","B","C","D"];keys.forEach((k,idx)=>{let x=70+(idx%2)*745,y=115+Math.floor(idx/2)*150;box(ctx,x,y,700,125,colors[k],"#fff");ctx.fillStyle=colors[k];roundRect(ctx,x+18,y+18,70,70,14);ctx.fill();text(ctx,k,x+53,y+66,34,800,"center","#fff");text(ctx,teamLabel(k),x+110,y+52,28,800);let mem=state.teams[k].members.filter(Boolean).join("・")||"尚未填寫成員";text(ctx,mem,x+110,y+88,20,500,"left","#667085")});let ry=440;box(ctx,70,ry,520,300);text(ctx,"單循環最終排名",95,ry+48,28,800);let r=ranking(),st=stats();r.forEach((k,i)=>{text(ctx,`${i+1}`,110,ry+100+i*46,24,800,"center",colors[k]);text(ctx,teamLabel(k),145,ry+100+i*46,22,700);text(ctx,`${st[k].pts} 分｜${st[k].gf}:${st[k].ga}`,555,ry+100+i*46,20,600,"right","#667085")});box(ctx,620,ry,910,600);text(ctx,"完整賽果",650,ry+48,28,800);let slots=playoffSlots(),games=rr.concat(slots);games.forEach((m,i)=>{let col=i<5?0:1,row=i%5,x=650+col*430,y=ry+100+row*92;let a=m[0],b=m[1];text(ctx,`第${i+1}場`,x,y,18,700,"left","#667085");text(ctx,teamLabel(a),x,y+32,21,700);text(ctx,isDone(i)?`${state.scores[i][0]}  :  ${state.scores[i][1]}`:"—  :  —",x+230,y+32,24,800,"center");text(ctx,teamLabel(b),x+420,y+32,21,700,"right")});let champ=winner(9,...slots[3]);box(ctx,70,780,520,260,"#e5a400","#fffaf0");text(ctx,"🏆",330,850,50,700,"center");text(ctx,"今日冠軍",330,900,26,800,"center","#a66b00");text(ctx,champ?teamLabel(champ):"尚未產生",330,955,38,900,"center","#8a5900");text(ctx,"單循環 6 場 ＋ 簡化雙敗 4 場｜共 10 場",800,1125,22,600,"center","#667085");let link=document.createElement("a");link.download="AR躲避球_活動賽事總結.png";link.href=c.toDataURL("image/png");link.click()}
-renderMeta();pullCloud();if(!isAdmin)setInterval(pullCloud,3000);
+// === 下一次活動設定區 ===
+// 日期確定後，只需要修改這一小段資料；目前保持 null 代表「籌備中」。
+const NEXT_EVENT = {
+  title: "下一次 311／1811 青少年活動",
+  datetime: null, // 例如 "2026-09-12T15:00:00+08:00"
+  dateText: "尚未公布",
+  timeText: "尚未公布",
+  place: "尚未公布",
+  mapUrl: "",
+  signupUrl: ""
+};
+
+function applyNextEvent(){
+ document.getElementById('nextDateText').textContent=NEXT_EVENT.dateText;
+ document.getElementById('nextTimeText').textContent=NEXT_EVENT.timeText;
+ document.getElementById('nextPlaceText').textContent=NEXT_EVENT.place;
+ if(NEXT_EVENT.signupUrl){let b=document.getElementById('signupBtn');b.href=NEXT_EVENT.signupUrl;b.className='btn primary';b.textContent='立即報名';}
+ if(NEXT_EVENT.mapUrl){let b=document.getElementById('mapBtn');b.href=NEXT_EVENT.mapUrl;b.target='_blank';b.className='btn green';b.textContent='Google Maps 導航';}
+}
+function tick(){
+ if(!NEXT_EVENT.datetime)return;
+ let diff=new Date(NEXT_EVENT.datetime)-new Date();
+ if(diff<=0){document.getElementById('countTitle').textContent='活動進行中／已開始';return;}
+ let d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+ document.getElementById('countTitle').textContent=NEXT_EVENT.title;
+ document.getElementById('cdD').textContent=d;document.getElementById('cdH').textContent=String(h).padStart(2,'0');document.getElementById('cdM').textContent=String(m).padStart(2,'0');document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+}
+function showPlan(id,btn){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function openPlan(){document.getElementById('planModal').classList.add('show')}
+function showInstall(){document.getElementById('installModal').classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+async function shareSite(){let data={title:'311／1811 青少年活動站',text:'311／1811 青少年活動資訊、報名與活動回顧',url:'https://habakkuk1271-coder.github.io/-ar-dodgeball/'};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{navigator.clipboard?.writeText(data.url);alert('網址已複製');}}
+applyNextEvent();tick();setInterval(tick,1000);
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
