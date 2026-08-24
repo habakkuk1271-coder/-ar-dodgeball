@@ -208,11 +208,28 @@ const NEXT_EVENT = {
 };
 
 function applyNextEvent(){
- document.getElementById('nextDateText').textContent=NEXT_EVENT.dateText;
- document.getElementById('nextTimeText').textContent=NEXT_EVENT.timeText;
- document.getElementById('nextPlaceText').textContent=NEXT_EVENT.place;
- if(NEXT_EVENT.signupUrl){let b=document.getElementById('signupBtn');b.href=NEXT_EVENT.signupUrl;b.className='btn primary';b.textContent='立即報名';}
- if(NEXT_EVENT.mapUrl){let b=document.getElementById('mapBtn');b.href=NEXT_EVENT.mapUrl;b.target='_blank';b.className='btn green';b.textContent='Google Maps 導航';}
+  const dateEl = document.getElementById('nextDateText');
+  const timeEl = document.getElementById('nextTimeText');
+  const placeEl = document.getElementById('nextPlaceText');
+  const signupBtn = document.getElementById('signupBtn');
+  const mapBtn = document.getElementById('mapBtn');
+
+  if (dateEl) dateEl.textContent = NEXT_EVENT.dateText;
+  if (timeEl) timeEl.textContent = NEXT_EVENT.timeText;
+  if (placeEl) placeEl.textContent = NEXT_EVENT.place;
+
+  if (signupBtn && NEXT_EVENT.signupUrl) {
+    signupBtn.href = NEXT_EVENT.signupUrl;
+    signupBtn.className = 'btn primary';
+    signupBtn.textContent = '立即報名';
+  }
+
+  if (mapBtn && NEXT_EVENT.mapUrl) {
+    mapBtn.href = NEXT_EVENT.mapUrl;
+    mapBtn.target = '_blank';
+    mapBtn.className = 'btn green';
+    mapBtn.textContent = 'Google Maps 導航';
+  }
 }
 function tick(){
   const target = new Date("2026-08-29T09:30:00+08:00").getTime();
@@ -254,7 +271,7 @@ function openPlan(){document.getElementById('planModal').classList.add('show')}
 function showInstall(){document.getElementById('installModal').classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 async function shareSite(){let data={title:'311／1811 青少年活動站',text:'311／1811 青少年活動資訊、報名與活動回顧',url:'https://habakkuk1271-coder.github.io/311-1811/'};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{navigator.clipboard?.writeText(data.url);alert('網址已複製');}}
-applyNextEvent();
+try { applyNextEvent(); } catch (e) { console.warn('Event UI update skipped:', e); }
 tick();
 setInterval(tick, 1000);
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
