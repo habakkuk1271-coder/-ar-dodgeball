@@ -215,19 +215,48 @@ function applyNextEvent(){
  if(NEXT_EVENT.mapUrl){let b=document.getElementById('mapBtn');b.href=NEXT_EVENT.mapUrl;b.target='_blank';b.className='btn green';b.textContent='Google Maps 導航';}
 }
 function tick(){
- if(!NEXT_EVENT.datetime)return;
- let diff=new Date(NEXT_EVENT.datetime)-new Date();
- if(diff<=0){document.getElementById('countTitle').textContent='活動進行中／已開始';return;}
- let d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
- document.getElementById('countTitle').textContent=NEXT_EVENT.title;
- document.getElementById('cdD').textContent=d;document.getElementById('cdH').textContent=String(h).padStart(2,'0');document.getElementById('cdM').textContent=String(m).padStart(2,'0');document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+  const target = new Date("2026-08-29T09:30:00+08:00").getTime();
+  const now = Date.now();
+  let diff = target - now;
+
+  const title = document.getElementById("countTitle");
+  const dEl = document.getElementById("cdD");
+  const hEl = document.getElementById("cdH");
+  const mEl = document.getElementById("cdM");
+  const sEl = document.getElementById("cdS");
+
+  if (!title || !dEl || !hEl || !mEl || !sEl) return;
+
+  if (diff <= 0) {
+    title.textContent = "活動進行中";
+    dEl.textContent = "0";
+    hEl.textContent = "00";
+    mEl.textContent = "00";
+    sEl.textContent = "00";
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  diff %= 86400000;
+  const hours = Math.floor(diff / 3600000);
+  diff %= 3600000;
+  const minutes = Math.floor(diff / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  title.textContent = "8月29日（六）09:30";
+  dEl.textContent = String(days);
+  hEl.textContent = String(hours).padStart(2,"0");
+  mEl.textContent = String(minutes).padStart(2,"0");
+  sEl.textContent = String(seconds).padStart(2,"0");
 }
 function showPlan(id,btn){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
 function openPlan(){document.getElementById('planModal').classList.add('show')}
 function showInstall(){document.getElementById('installModal').classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 async function shareSite(){let data={title:'311／1811 青少年活動站',text:'311／1811 青少年活動資訊、報名與活動回顧',url:'https://habakkuk1271-coder.github.io/311-1811/'};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{navigator.clipboard?.writeText(data.url);alert('網址已複製');}}
-applyNextEvent();tick();setInterval(tick,1000);
+applyNextEvent();
+tick();
+setInterval(tick, 1000);
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
