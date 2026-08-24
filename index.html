@@ -140,7 +140,7 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
 
 
 
-<section class="card">
+<section id="event-plan" class="card">
  <h2>活動方案</h2>
  <div class="sub">本次活動為統一方案，沒有晴天／雨天之分。</div>
  <div class="timeline">
@@ -204,42 +204,196 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
 (function () {
   "use strict";
 
-  function updateCountdown() {
-    // 台灣時間 2026/08/29 09:30 = UTC 2026/08/29 01:30
-    var target = Date.UTC(2026, 7, 29, 1, 30, 0);
-    var diff = target - Date.now();
+  const SB_URL = "https://kbbmmfhguvwcsdxgixwn.supabase.co";
+  const SB_KEY = "sb_publishable_RCXF6V6pJO6OkcaRoi3WWQ_SOIG82j3";
+  let countdownTimer = null;
 
-    var title = document.getElementById("countTitle");
-    var d = document.getElementById("cdD");
-    var h = document.getElementById("cdH");
-    var m = document.getElementById("cdM");
-    var s = document.getElementById("cdS");
+  function esc(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-    if (!title || !d || !h || !m || !s) return;
+  function safeUrl(value) {
+    const s = String(value || "").trim();
+    return /^https:\/\//i.test(s) ? s : "#";
+  }
 
-    if (diff <= 0) {
-      title.textContent = "活動進行中";
-      d.textContent = "0";
-      h.textContent = "00";
-      m.textContent = "00";
-      s.textContent = "00";
-      return;
+  function renderPractice(p) {
+    if (!p) return;
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+    const items = Array.isArray(p.items) ? p.items : [];
+    hero.innerHTML = `
+      <div class="heroTop">
+        <div>
+          <h1>${esc(p.title || "本週操練項目")}</h1>
+          <p><strong>操練日期：${esc(p.date_range || "")}</strong></p>
+          <p style="margin-top:10px;font-size:16px;line-height:1.8">
+            ${items.map((x,i)=>`${i+1}. ${esc(x)}`).join("<br>")}
+          </p>
+          ${p.note ? `<p style="margin-top:8px">${esc(p.note)}</p>` : ""}
+        </div>
+        <div class="heroButtons">
+          <a class="heroBtn" href="#next">下一次活動</a>
+          <a class="heroBtn" href="#recent">活動回顧</a>
+        </div>
+      </div>
+      <div class="heroMeta">
+        <span class="chip">❤️ 愛主操練</span>
+        <span class="chip">📣 本週提醒</span>
+        <span class="chip">🗓️ ${esc(p.date_range || "")}</span>
+        <span class="chip">📱 可加入主畫面</span>
+      </div>`;
+  }
+
+  function renderNotice(n) {
+    if (!n) return;
+    const el = document.getElementById("notice");
+    if (!el) return;
+    const items = Array.isArray(n.items) ? n.items : [];
+    el.innerHTML = `
+      <div class="sectionHead">
+        <div><h2>最新公告</h2><div class="sub">重要變更會優先放在這裡。</div></div>
+        <strong>${esc(n.badge || "")}</strong>
+      </div>
+      <ul class="noticeList">${items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  }
+
+  function renderEvent(e) {
+    if (!e) return;
+    const el = document.getElementById("next");
+    if (!el) return;
+
+    el.innerHTML = `
+      <div class="sectionHead">
+        <div>
+          <h2>下一次活動</h2>
+          <div class="sub">活動倒數、報名、集合地點與導航都集中在這裡。</div>
+        </div>
+        <span class="eventStatus">${esc(e.status || "籌備中")}</span>
+      </div>
+      <div class="nextGrid">
+        <div class="eventBox">
+          <div class="eventTitle">${esc(e.title || "下一次活動")}</div>
+          <div class="sub">${esc(e.date_text || "")}</div>
+          <div class="eventDetail">
+            <div class="detail"><small>集合時間</small><b>${esc(e.meeting_time || "尚未公布")}</b></div>
+            <div class="detail"><small>集合地點</small><b>${esc(e.place || "尚未公布")}</b></div>
+            <div class="detail"><small>參加對象</small><b>${esc(e.audience || "")}</b></div>
+            <div class="detail"><small>費用</small><b>${esc(e.fee || "")}</b></div>
+          </div>
+          ${e.packing ? `<div class="detail" style="margin:10px 0 12px"><small>攜帶物品</small><b style="display:block;line-height:1.7">${esc(e.packing)}</b></div>` : ""}
+          <div id="signup" class="actionRow">
+            ${e.signup_url ? `<a class="btn primary" href="${esc(safeUrl(e.signup_url))}" target="_blank" rel="noopener">立即報名</a>` : `<span class="btn disabled">報名尚未開放</span>`}
+            ${e.map_url ? `<a class="btn green" href="${esc(safeUrl(e.map_url))}" target="_blank" rel="noopener">Google Maps 導航</a>` : `<span class="btn disabled">導航尚未提供</span>`}
+          </div>
+        </div>
+        <div class="countdown">
+          <small>距離活動開始</small>
+          <div id="countTitle" class="countdownBig">${esc(e.date_text || "日期尚未公布")}</div>
+          <div class="countCells">
+            <div class="countCell"><b id="cdD">--</b><span>天</span></div>
+            <div class="countCell"><b id="cdH">--</b><span>時</span></div>
+            <div class="countCell"><b id="cdM">--</b><span>分</span></div>
+            <div class="countCell"><b id="cdS">--</b><span>秒</span></div>
+          </div>
+        </div>
+      </div>`;
+
+    renderPlan(e);
+    startCountdown(e.start_at);
+  }
+
+  function renderPlan(e) {
+    const el = document.getElementById("event-plan");
+    if (!el) return;
+    el.innerHTML = `
+      <h2>活動方案</h2>
+      <div class="sub">本次活動資訊以最新公告為準。</div>
+      <div class="timeline">
+        <div class="timelineItem">
+          <div class="time">${esc(e.date_text || "")} ${esc(e.meeting_time || "")}</div>
+          <div class="tlTitle">報到與集合</div>
+          <div class="tlNote">${esc(e.place || "")}${e.fee ? "；" + esc(e.fee) : ""}</div>
+        </div>
+        <div class="timelineItem">
+          <div class="time">${esc(e.date_text || "")}</div>
+          <div class="tlTitle">${esc(e.title || "下一次活動")}</div>
+          <div class="tlNote">詳細流程如有更新，將公告於本活動站。</div>
+        </div>
+      </div>`;
+  }
+
+  function startCountdown(startAt) {
+    if (countdownTimer) clearInterval(countdownTimer);
+
+    function update() {
+      const title = document.getElementById("countTitle");
+      const d = document.getElementById("cdD");
+      const h = document.getElementById("cdH");
+      const m = document.getElementById("cdM");
+      const s = document.getElementById("cdS");
+      if (!title || !d || !h || !m || !s) return;
+
+      if (!startAt) {
+        title.textContent = "日期尚未公布";
+        d.textContent = h.textContent = m.textContent = s.textContent = "--";
+        return;
+      }
+
+      const target = new Date(startAt).getTime();
+      if (!Number.isFinite(target)) return;
+      let diff = target - Date.now();
+
+      if (diff <= 0) {
+        title.textContent = "活動進行中";
+        d.textContent = "0"; h.textContent = "00"; m.textContent = "00"; s.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      d.textContent = String(days);
+      h.textContent = String(hours).padStart(2,"0");
+      m.textContent = String(minutes).padStart(2,"0");
+      s.textContent = String(seconds).padStart(2,"0");
     }
 
-    var days = Math.floor(diff / 86400000);
-    var hours = Math.floor((diff % 86400000) / 3600000);
-    var minutes = Math.floor((diff % 3600000) / 60000);
-    var seconds = Math.floor((diff % 60000) / 1000);
+    update();
+    countdownTimer = setInterval(update, 1000);
+  }
 
-    title.textContent = "8月29日（六）09:30";
-    d.textContent = String(days);
-    h.textContent = String(hours).padStart(2, "0");
-    m.textContent = String(minutes).padStart(2, "0");
-    s.textContent = String(seconds).padStart(2, "0");
+  async function loadSiteData() {
+    try {
+      const res = await fetch(`${SB_URL}/rest/v1/youth_site_settings?id=eq.main&select=data`, {
+        headers: {
+          "apikey": SB_KEY,
+          "Authorization": "Bearer " + SB_KEY
+        },
+        cache: "no-store"
+      });
+      if (!res.ok) throw new Error("settings fetch failed");
+      const rows = await res.json();
+      const data = rows && rows[0] && rows[0].data;
+      if (!data) return;
+      renderPractice(data.practice);
+      renderNotice(data.notice);
+      renderEvent(data.event);
+    } catch (err) {
+      console.warn("使用網站內建資料：", err);
+      // Static HTML remains as fallback if Supabase is temporarily unavailable.
+      startCountdown("2026-08-29T09:30:00+08:00");
+    }
   }
 
   window.shareSite = async function () {
-    var data = {
+    const data = {
       title: "311／1811 青少年活動站",
       text: "311／1811 青少年活動資訊、報名與活動回顧",
       url: "https://habakkuk1271-coder.github.io/311-1811/"
@@ -257,41 +411,22 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
   };
 
   window.openPlan = function () {
-    var el = document.getElementById("planModal");
+    const el = document.getElementById("planModal");
     if (el) el.classList.add("show");
   };
-
   window.showInstall = function () {
-    var el = document.getElementById("installModal");
+    const el = document.getElementById("installModal");
     if (el) el.classList.add("show");
   };
-
   window.closeModal = function (id) {
-    var el = document.getElementById(id);
+    const el = document.getElementById(id);
     if (el) el.classList.remove("show");
   };
 
-  window.showPlan = function (id, btn) {
-    document.querySelectorAll(".plan").forEach(function (x) {
-      x.classList.remove("active");
-    });
-    document.querySelectorAll(".tab").forEach(function (x) {
-      x.classList.remove("active");
-    });
-    var target = document.getElementById(id);
-    if (target) target.classList.add("active");
-    if (btn) btn.classList.add("active");
-  };
-
-  function start() {
-    updateCountdown();
-    window.setInterval(updateCountdown, 1000);
-  }
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start);
+    document.addEventListener("DOMContentLoaded", loadSiteData);
   } else {
-    start();
+    loadSiteData();
   }
 })();
 </script>
