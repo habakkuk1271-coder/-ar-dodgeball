@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
+<meta name="build-version" content="countdown-v4">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b2d61">
@@ -195,86 +196,99 @@ main{max-width:1160px;margin:auto;padding:14px}.hero{background:linear-gradient(
 <div id="installModal" class="modalBack" onclick="if(event.target===this)closeModal('installModal')"><div class="modal"><button class="close" onclick="closeModal('installModal')">×</button><h3>加入手機主畫面</h3><p>iPhone／iPad：用 Safari 開啟本站 → 點下方「分享」按鈕 → 選「加入主畫面」。之後可以像 App 一樣從桌面開啟。</p><p>Android：用 Chrome 開啟本站，瀏覽器通常會提供「安裝」或「新增至主畫面」。</p></div></div>
 
 <script>
-// === 下一次活動設定區 ===
-// 日期確定後，只需要修改這一小段資料；目前保持 null 代表「籌備中」。
-const NEXT_EVENT = {
-  title: "台南青少年成全及集中主日",
-  datetime: "2026-08-29T09:30:00+08:00",
-  dateText: "8/29（六）～8/30（日）",
-  timeText: "09:30",
-  place: "裕忠路會所 B 中會場",
-  mapUrl: "https://maps.app.goo.gl/TprmB2BoiPq3grov7?g_st=ic",
-  signupUrl: "https://forms.gle/7kQgJGa2CWX4sWZ3A"
-};
+(function () {
+  "use strict";
 
-function applyNextEvent(){
-  const dateEl = document.getElementById('nextDateText');
-  const timeEl = document.getElementById('nextTimeText');
-  const placeEl = document.getElementById('nextPlaceText');
-  const signupBtn = document.getElementById('signupBtn');
-  const mapBtn = document.getElementById('mapBtn');
+  function updateCountdown() {
+    // 台灣時間 2026/08/29 09:30 = UTC 2026/08/29 01:30
+    var target = Date.UTC(2026, 7, 29, 1, 30, 0);
+    var diff = target - Date.now();
 
-  if (dateEl) dateEl.textContent = NEXT_EVENT.dateText;
-  if (timeEl) timeEl.textContent = NEXT_EVENT.timeText;
-  if (placeEl) placeEl.textContent = NEXT_EVENT.place;
+    var title = document.getElementById("countTitle");
+    var d = document.getElementById("cdD");
+    var h = document.getElementById("cdH");
+    var m = document.getElementById("cdM");
+    var s = document.getElementById("cdS");
 
-  if (signupBtn && NEXT_EVENT.signupUrl) {
-    signupBtn.href = NEXT_EVENT.signupUrl;
-    signupBtn.className = 'btn primary';
-    signupBtn.textContent = '立即報名';
+    if (!title || !d || !h || !m || !s) return;
+
+    if (diff <= 0) {
+      title.textContent = "活動進行中";
+      d.textContent = "0";
+      h.textContent = "00";
+      m.textContent = "00";
+      s.textContent = "00";
+      return;
+    }
+
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var minutes = Math.floor((diff % 3600000) / 60000);
+    var seconds = Math.floor((diff % 60000) / 1000);
+
+    title.textContent = "8月29日（六）09:30";
+    d.textContent = String(days);
+    h.textContent = String(hours).padStart(2, "0");
+    m.textContent = String(minutes).padStart(2, "0");
+    s.textContent = String(seconds).padStart(2, "0");
   }
 
-  if (mapBtn && NEXT_EVENT.mapUrl) {
-    mapBtn.href = NEXT_EVENT.mapUrl;
-    mapBtn.target = '_blank';
-    mapBtn.className = 'btn green';
-    mapBtn.textContent = 'Google Maps 導航';
+  window.shareSite = async function () {
+    var data = {
+      title: "311／1811 青少年活動站",
+      text: "311／1811 青少年活動資訊、報名與活動回顧",
+      url: "https://habakkuk1271-coder.github.io/311-1811/"
+    };
+    if (navigator.share) {
+      try { await navigator.share(data); } catch (e) {}
+    } else {
+      try {
+        await navigator.clipboard.writeText(data.url);
+        alert("網址已複製");
+      } catch (e) {
+        prompt("請複製網址：", data.url);
+      }
+    }
+  };
+
+  window.openPlan = function () {
+    var el = document.getElementById("planModal");
+    if (el) el.classList.add("show");
+  };
+
+  window.showInstall = function () {
+    var el = document.getElementById("installModal");
+    if (el) el.classList.add("show");
+  };
+
+  window.closeModal = function (id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove("show");
+  };
+
+  window.showPlan = function (id, btn) {
+    document.querySelectorAll(".plan").forEach(function (x) {
+      x.classList.remove("active");
+    });
+    document.querySelectorAll(".tab").forEach(function (x) {
+      x.classList.remove("active");
+    });
+    var target = document.getElementById(id);
+    if (target) target.classList.add("active");
+    if (btn) btn.classList.add("active");
+  };
+
+  function start() {
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
   }
-}
-function tick(){
-  const target = new Date("2026-08-29T09:30:00+08:00").getTime();
-  const now = Date.now();
-  let diff = target - now;
 
-  const title = document.getElementById("countTitle");
-  const dEl = document.getElementById("cdD");
-  const hEl = document.getElementById("cdH");
-  const mEl = document.getElementById("cdM");
-  const sEl = document.getElementById("cdS");
-
-  if (!title || !dEl || !hEl || !mEl || !sEl) return;
-
-  if (diff <= 0) {
-    title.textContent = "活動進行中";
-    dEl.textContent = "0";
-    hEl.textContent = "00";
-    mEl.textContent = "00";
-    sEl.textContent = "00";
-    return;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
   }
-
-  const days = Math.floor(diff / 86400000);
-  diff %= 86400000;
-  const hours = Math.floor(diff / 3600000);
-  diff %= 3600000;
-  const minutes = Math.floor(diff / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-
-  title.textContent = "8月29日（六）09:30";
-  dEl.textContent = String(days);
-  hEl.textContent = String(hours).padStart(2,"0");
-  mEl.textContent = String(minutes).padStart(2,"0");
-  sEl.textContent = String(seconds).padStart(2,"0");
-}
-function showPlan(id,btn){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
-function openPlan(){document.getElementById('planModal').classList.add('show')}
-function showInstall(){document.getElementById('installModal').classList.add('show')}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-async function shareSite(){let data={title:'311／1811 青少年活動站',text:'311／1811 青少年活動資訊、報名與活動回顧',url:'https://habakkuk1271-coder.github.io/311-1811/'};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{navigator.clipboard?.writeText(data.url);alert('網址已複製');}}
-try { applyNextEvent(); } catch (e) { console.warn('Event UI update skipped:', e); }
-tick();
-setInterval(tick, 1000);
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
 </script>
 </body>
 </html>
