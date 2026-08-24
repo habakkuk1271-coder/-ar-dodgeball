@@ -1,0 +1,18 @@
+{
+  "name": "311／1811 青少年活動站",
+  "short_name": "311／1811",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0b2d61",
+  "description": "311／1811 青少年活動資訊、報名、公告與活動回顧",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
